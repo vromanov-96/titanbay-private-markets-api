@@ -45,7 +45,10 @@ export class FundsController {
 
   @Put()
   async update(@Body() updateFundDto: UpdateFundDto): Promise<Fund> {
-    const fund = await this.fundsService.update(updateFundDto.id, updateFundDto);
+    const fund = await this.fundsService.update(
+      updateFundDto.id,
+      updateFundDto,
+    );
     return new Fund(fund);
   }
 

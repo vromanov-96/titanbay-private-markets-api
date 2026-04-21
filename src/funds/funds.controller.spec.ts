@@ -186,7 +186,10 @@ describe('FundsController', () => {
       mockFundsService.findOne.mockResolvedValue({ id });
       mockCommitmentsService.create.mockResolvedValue(result);
 
-      const response = await controller.createInvestment(id, createCommitmentDto);
+      const response = await controller.createInvestment(
+        id,
+        createCommitmentDto,
+      );
       expect(response).toBeInstanceOf(Investment);
       expect(response.amount_usd).toEqual('500000.00');
       expect(response.investment_date).toEqual('2024-03-15');

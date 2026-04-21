@@ -16,7 +16,9 @@ export class InvestorsController {
   constructor(private readonly investorsService: InvestorsService) {}
 
   @Post()
-  async create(@Body() createInvestorDto: CreateInvestorDto): Promise<Investor> {
+  async create(
+    @Body() createInvestorDto: CreateInvestorDto,
+  ): Promise<Investor> {
     const investor = await this.investorsService.create(createInvestorDto);
     return new Investor(investor);
   }

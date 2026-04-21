@@ -46,7 +46,11 @@ describe('InvestorsService', () => {
     };
 
     it('should create an investor', async () => {
-      const result = { id: 'uuid', ...createInvestorDto, created_at: new Date() };
+      const result = {
+        id: 'uuid',
+        ...createInvestorDto,
+        created_at: new Date(),
+      };
       mockPrismaService.investor.create.mockResolvedValue(result);
 
       expect(await service.create(createInvestorDto)).toEqual(result);
@@ -56,7 +60,12 @@ describe('InvestorsService', () => {
     });
 
     it('should throw ConflictException on duplicate email', async () => {
-      mockPrismaService.investor.create.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('test', {code: 'P2002', clientVersion: '1'}));
+      mockPrismaService.investor.create.mockRejectedValue(
+        new Prisma.PrismaClientKnownRequestError('test', {
+          code: 'P2002',
+          clientVersion: '1',
+        }),
+      );
 
       await expect(service.create(createInvestorDto)).rejects.toThrow(
         ConflictException,
@@ -66,7 +75,9 @@ describe('InvestorsService', () => {
 
   describe('findAll', () => {
     it('should return an array of investors', async () => {
-      const result = [{ id: 'uuid', name: 'John Doe', email: 'john@example.com' }];
+      const result = [
+        { id: 'uuid', name: 'John Doe', email: 'john@example.com' },
+      ];
       mockPrismaService.investor.findMany.mockResolvedValue(result);
 
       expect(await service.findAll()).toEqual(result);

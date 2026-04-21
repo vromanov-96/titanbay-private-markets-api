@@ -13,4 +13,3 @@ export class CreateInvestorDto {
   @IsNotEmpty()
   email!: string;
 }
-

@@ -99,9 +99,16 @@ describe('FundsService', () => {
     it('should throw NotFoundException if prisma update fails with P2025', async () => {
       const id = 'uuid';
       const dto = { name: 'Updated Fund' };
-      mockPrismaService.fund.update.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('test', {code: 'P2025', clientVersion: '1'}));
+      mockPrismaService.fund.update.mockRejectedValue(
+        new Prisma.PrismaClientKnownRequestError('test', {
+          code: 'P2025',
+          clientVersion: '1',
+        }),
+      );
 
-      await expect(service.update(id, dto as any)).rejects.toThrow(NotFoundException);
+      await expect(service.update(id, dto as any)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });

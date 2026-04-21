@@ -24,7 +24,10 @@ export class CommitmentsService {
         },
       });
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2003') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2003'
+      ) {
         throw new BadRequestException(
           `Foreign key constraint failed: ${error.meta?.field_name}`,
         );

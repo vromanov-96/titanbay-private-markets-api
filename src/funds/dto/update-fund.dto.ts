@@ -5,4 +5,3 @@ export class UpdateFundDto extends CreateFundDto {
   @IsUUID()
   id!: string;
 }
-

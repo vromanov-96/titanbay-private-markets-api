@@ -43,7 +43,11 @@ describe('InvestorsController', () => {
         investor_type: InvestorType.Individual,
         email: 'john@example.com',
       };
-      const result = { id: 'uuid', ...createInvestorDto, created_at: new Date() };
+      const result = {
+        id: 'uuid',
+        ...createInvestorDto,
+        created_at: new Date(),
+      };
       mockInvestorsService.create.mockResolvedValue(result);
 
       const response = await controller.create(createInvestorDto);
@@ -55,7 +59,9 @@ describe('InvestorsController', () => {
 
   describe('findAll', () => {
     it('should return an array of investors', async () => {
-      const result = [{ id: 'uuid', name: 'John Doe', email: 'john@example.com' }];
+      const result = [
+        { id: 'uuid', name: 'John Doe', email: 'john@example.com' },
+      ];
       mockInvestorsService.findAll.mockResolvedValue(result);
 
       const response = await controller.findAll();

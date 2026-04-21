@@ -68,7 +68,13 @@ describe('CommitmentsService', () => {
     });
 
     it('should throw BadRequestException if foreign key constraint fails', async () => {
-      mockPrismaService.investment.create.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('test', {code: 'P2003', clientVersion: '1', meta: {field_name: 'fund_id'}}));
+      mockPrismaService.investment.create.mockRejectedValue(
+        new Prisma.PrismaClientKnownRequestError('test', {
+          code: 'P2003',
+          clientVersion: '1',
+          meta: { field_name: 'fund_id' },
+        }),
+      );
 
       await expect(service.create(createCommitmentDto)).rejects.toThrow(
         BadRequestException,
