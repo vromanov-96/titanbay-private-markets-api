@@ -3,9 +3,9 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { CreateCommitmentDto } from './dto/create-commitment.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class CommitmentsService {

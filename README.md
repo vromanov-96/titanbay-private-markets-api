@@ -124,6 +124,8 @@ curl -X POST http://localhost:3000/funds/{fund_id}/investments \
 *   **Decoupled Entities:** I used specialized `Entity` classes (e.g., `Fund`, `Investment`) with `class-transformer`. This decouples the database schema (Prisma models) from the API response, allowing for granular control over serialization (like date formatting or excluding internal fields).
 *   **Validation:** Robust validation is implemented using `class-validator`. I also added `ParseUUIDPipe` to all path parameters to ensure `400 Bad Request` is returned for malformed IDs instead of server-side errors.
 *   **Consolidated Tests:** Integration tests are consolidated into a single `api.e2e-spec.ts` file, organized by resource, to provide a clear overview of the entire API surface area in one place.
+*   **Enum Strictness:** Currently enums such as `Fundraising` for `status` are case sensitive, so `fundraising` would be rejected - this could be made more forgiving by transforming and capitalising the incoming string
+*   **Lack of Pagination:** As it's currently a small API there is no pagination when listing funds and investors. For a production app pagination would be required e.g. via `limit` if there were thousands of records.
 
 ---
 
