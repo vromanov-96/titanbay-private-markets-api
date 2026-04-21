@@ -1,4 +1,4 @@
-# Titanbay Private Markets API (Technical Test_)
+# Titanbay Private Markets API (Technical Test)
 
 A RESTful API for managing private market funds and investor commitments, built with NestJS and Prisma.
 
