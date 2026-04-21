@@ -2,6 +2,8 @@
 
 A RESTful API for managing private market funds and investor commitments, built with NestJS and Prisma.
 
+PostgreSQL is used as the database, running locally via docker-compose.
+
 ## Quick Start (Minimal Setup)
 
 Ensure you have [Docker](https://www.docker.com/) and [Node.js](https://nodejs.org/) installed.
@@ -66,7 +68,7 @@ npm run test:e2e
 
 ---
 
-## 🛠️ Usage Examples
+## Usage Examples
 
 ### Funds
 **List all funds:**
