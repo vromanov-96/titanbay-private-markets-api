@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFundDto } from './dto/create-fund.dto';
 import { UpdateFundDto } from './dto/update-fund.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class FundsService {
@@ -36,7 +37,10 @@ export class FundsService {
         data,
       });
     } catch (error) {
-      if (error.code === 'P2025') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
         throw new NotFoundException(`Fund with ID ${id} not found`);
       }
       throw error;

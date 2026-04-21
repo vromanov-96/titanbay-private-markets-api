@@ -3,6 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { CreateCommitmentDto } from './dto/create-commitment.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -23,7 +24,7 @@ export class CommitmentsService {
         },
       });
     } catch (error) {
-      if (error.code === 'P2003') {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2003') {
         throw new BadRequestException(
           `Foreign key constraint failed: ${error.meta?.field_name}`,
         );

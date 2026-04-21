@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FundsService } from './funds.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotFoundException } from '@nestjs/common';
-import { FundStatus } from '@prisma/client';
+import { FundStatus, Prisma } from '@prisma/client';
 
 describe('FundsService', () => {
   let service: FundsService;
@@ -99,7 +99,7 @@ describe('FundsService', () => {
     it('should throw NotFoundException if prisma update fails with P2025', async () => {
       const id = 'uuid';
       const dto = { name: 'Updated Fund' };
-      mockPrismaService.fund.update.mockRejectedValue({ code: 'P2025' });
+      mockPrismaService.fund.update.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('test', {code: 'P2025', clientVersion: '1'}));
 
       await expect(service.update(id, dto as any)).rejects.toThrow(NotFoundException);
     });

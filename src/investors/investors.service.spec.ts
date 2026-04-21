@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { InvestorsService } from './investors.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConflictException } from '@nestjs/common';
-import { InvestorType } from '@prisma/client';
+import { InvestorType, Prisma } from '@prisma/client';
 
 describe('InvestorsService', () => {
   let service: InvestorsService;
@@ -56,7 +56,7 @@ describe('InvestorsService', () => {
     });
 
     it('should throw ConflictException on duplicate email', async () => {
-      mockPrismaService.investor.create.mockRejectedValue({ code: 'P2002' });
+      mockPrismaService.investor.create.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('test', {code: 'P2002', clientVersion: '1'}));
 
       await expect(service.create(createInvestorDto)).rejects.toThrow(
         ConflictException,
