@@ -1,98 +1,135 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Titanbay Private Markets API (Technical Test_)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A RESTful API for managing private market funds and investor commitments, built with NestJS and Prisma.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Quick Start (Minimal Setup)
 
-## Description
+Ensure you have [Docker](https://www.docker.com/) and [Node.js](https://nodejs.org/) installed.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Project setup
+2.  **Start the database:**
+    ```bash
+    docker-compose up -d
+    ```
 
-```bash
-$ npm install
-```
+3.  **Initialize the database & seed data:**
+    ```bash
+    # Sync schema
+    npx prisma db push
 
-## Compile and run the project
+    # Apply seed data (Funds, Investors, Investments)
+    npx prisma db seed
+    ```
 
-```bash
-# development
-$ npm run start
+4.  **Run the application:**
+    ```bash
+    npm run start:dev
+    ```
+    The API will be available at `http://localhost:3000`.
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## API Documentation
 
-## Run tests
+The full API specification can be found [here](https://storage.googleapis.com/interview-api-doc-funds.wearebusy.engineering/index.html).
 
-```bash
-# unit tests
-$ npm run test
+### Key Endpoints
 
-# e2e tests
-$ npm run test:e2e
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/funds` | Create a new fund |
+| `GET` | `/funds` | List all funds |
+| `GET` | `/funds/:id` | Get a specific fund by UUID |
+| `PUT` | `/funds` | Update an existing fund (Full body required) |
+| `POST` | `/investors` | Create a new investor |
+| `GET` | `/investors` | List all investors |
+| `POST` | `/funds/:id/investments` | Create an investment for a fund |
+| `GET` | `/funds/:id/investments` | List all investments for a fund |
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+## Testing
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+The project includes both unit and end-to-end integration tests.
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Run unit tests
+npm run test
+
+# Run E2E integration tests
+npm run test:e2e
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 🛠️ Usage Examples
 
-Check out a few resources that may come in handy when working with NestJS:
+### Funds
+**List all funds:**
+```bash
+curl http://localhost:3000/funds
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Get a specific fund:**
+```bash
+curl http://localhost:3000/funds/{fund_id}
+```
 
-## Support
+**Create a fund:**
+```bash
+curl -X POST http://localhost:3000/funds \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Titanbay Growth Fund II",
+    "vintage_year": 2025,
+    "target_size_usd": 500000000.00,
+    "status": "Fundraising"
+  }'
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Investors
+**List all investors:**
+```bash
+curl http://localhost:3000/investors
+```
 
-## Stay in touch
+### Investments
+**List investments for a fund:**
+```bash
+curl http://localhost:3000/funds/{fund_id}/investments
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Create a new investment:**
+```bash
+curl -X POST http://localhost:3000/funds/{fund_id}/investments \
+  -H "Content-Type: application/json" \
+  -d '{
+    "investor_id": "{investor_id}",
+    "amount_usd": 75000000.00,
+    "investment_date": "2024-03-15"
+  }'
+```
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Design Decisions & Assumptions
+
+*   **Financial Precision (Strings):** `Decimal` values for `amount_usd` and `target_size_usd` are returned as **strings with exactly two decimal places** (e.g., `"100.00"`). This follows financial API best practices to prevent precision loss during JSON serialization and ensures consistent formatting for the client.
+*   **Decoupled Entities:** I used specialized `Entity` classes (e.g., `Fund`, `Investment`) with `class-transformer`. This decouples the database schema (Prisma models) from the API response, allowing for granular control over serialization (like date formatting or excluding internal fields).
+*   **Validation:** Robust validation is implemented using `class-validator`. I also added `ParseUUIDPipe` to all path parameters to ensure `400 Bad Request` is returned for malformed IDs instead of server-side errors.
+*   **Consolidated Tests:** Integration tests are consolidated into a single `api.e2e-spec.ts` file, organized by resource, to provide a clear overview of the entire API surface area in one place.
+
+---
+
+## AI Collaboration
+
+**How I used AI:**
+*   **Framework choice:** Initial planning and weighing up of frameworks to use, particularly the choice of ORM
+*   **Boilerplate Generation:** Rapidly created NestJS modules, services, and controllers.
+*   **Schema Mapping:** Used AI to translate the API spec into a valid Prisma schema.
+*   **Test-Driven Development:** Leveraged the AI to generate edge-case test scenarios (unhappy paths) and verify data transformations.
+*   **Refactoring:** Used AI to perform surgical refactors, such as converting raw Prisma results into formatted entities and cleaning up unused service logic.
